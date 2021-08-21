@@ -22,6 +22,6 @@ public class EmployeeService {
     }
 
     public void deleteAllByCompanyId(int id) {
-         deleteAllByCompanyId(id);
+         employeeRepository.deleteAllByCompanyId(id);
     }
 }
