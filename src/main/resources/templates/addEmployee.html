@@ -13,6 +13,11 @@
   <input type="text"  placeholder="phoneNumber"  name="phoneNumber" class = "input"><br>
   <input type="text"  placeholder="salary"  name="salary" class = "input"><br>
   <input type="text"  placeholder="position"  name="position" class = "input"><br>
+  <input type="password"  placeholder="password"  name="password" class = "input"><br>
+  <select name="employeeType">
+    <option value="USER">USER</option>
+    <option value="ADMIN">ADMIN</option>
+  </select>
   <span style="color: red">Company where you are working</span>
   <select class = "input" name="companyId">
     <option th:each="company:${companies}" th:text="${company.name}" th:value="${company.id}"></option>

@@ -20,9 +20,12 @@ public class Employee {
     private String name;
     private String surname;
     private String email;
+    private String password;
     private String phoneNumber;
     private int salary;
     private String position;
     private int companyId;
+    @Enumerated(value = EnumType.STRING)
+    private EmployeeType employeeType;
 
 }
