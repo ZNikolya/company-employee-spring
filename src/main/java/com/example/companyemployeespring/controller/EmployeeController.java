@@ -2,9 +2,11 @@ package com.example.companyemployeespring.controller;
 
 import com.example.companyemployeespring.model.Company;
 import com.example.companyemployeespring.model.Employee;
+import com.example.companyemployeespring.security.CurrentUser;
 import com.example.companyemployeespring.service.CompanyService;
 import com.example.companyemployeespring.service.EmployeeService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -23,8 +25,12 @@ public class EmployeeController {
     private final PasswordEncoder passwordEncoder;
 
     @GetMapping("/employees")
-    public String getEmployees(ModelMap modelMap) {
-        List<Employee> all = employeeService.findAll();
+    public String getEmployees(ModelMap modelMap, @AuthenticationPrincipal CurrentUser currentUser) {
+        List<Employee> all = employeeService.findEmployeeByCompanyId(currentUser.getEmployee().getCompanyId());
+        for (Employee employee : all) {
+            Company companyById = companyService.findCompanyById(employee.getCompanyId());
+            employee.setCompanyName(companyById.getName());
+        }
         modelMap.addAttribute("employees", all);
         return "employees";
     }
@@ -45,7 +51,6 @@ public class EmployeeController {
         companySizeNew++;
         company.setSize(companySizeNew);
         companyService.save(company);
-
         return "redirect:/employees";
     }
 

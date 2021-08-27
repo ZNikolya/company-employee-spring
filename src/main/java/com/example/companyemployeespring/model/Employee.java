@@ -27,5 +27,6 @@ public class Employee {
     private int companyId;
     @Enumerated(value = EnumType.STRING)
     private EmployeeType employeeType;
-
+    @Transient
+    private String companyName;
 }

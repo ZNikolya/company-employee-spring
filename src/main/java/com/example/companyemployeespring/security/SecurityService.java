@@ -19,7 +19,7 @@ public class SecurityService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         Optional<Employee> byEmail = employeeRepository.findByEmail(s);
-        if (!byEmail.isPresent()){
+        if (!byEmail.isPresent()) {
             throw new UsernameNotFoundException("Employee with" + s + "email does not exist!");
         }
 

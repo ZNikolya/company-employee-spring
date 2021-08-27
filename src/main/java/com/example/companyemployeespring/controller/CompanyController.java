@@ -22,13 +22,14 @@ public class CompanyController {
     private final EmployeeService employeeService;
 
     @GetMapping("/companies")
-    public String getCompanies(ModelMap modelMap){
+    public String getCompanies(ModelMap modelMap) {
         List<Company> all = companyService.findAll();
-        modelMap.addAttribute("companies" , all);
+        modelMap.addAttribute("companies", all);
         return "companies";
     }
+
     @GetMapping("/addCompany")
-    public String addCompany(){
+    public String addCompany() {
         return "addCompany";
     }
 
@@ -40,7 +41,7 @@ public class CompanyController {
 
     @GetMapping("/deleteCompany/{id}")
     @Transactional
-    public  String deleteCompany(@PathVariable("id") int id ){
+    public String deleteCompany(@PathVariable("id") int id) {
         System.out.println(id);
         employeeService.deleteAllByCompanyId(id);
         companyService.deleteById(id);

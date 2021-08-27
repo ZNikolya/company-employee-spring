@@ -9,25 +9,29 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class  CompanyService {
+public class CompanyService {
 
     private final CompanyRepository companyRepository;
 
-    public void save(Company company){
+    public void save(Company company) {
         companyRepository.save(company);
     }
 
-    public List<Company> findAll(){
+    public List<Company> findAll() {
         return companyRepository.findAll();
     }
 
-    public Company getById(int id){
+    public Company getById(int id) {
         return companyRepository.getById(id);
     }
 
 
     public void deleteById(int id) {
         companyRepository.deleteById(id);
+    }
+
+    public Company findCompanyById(int companyId) {
+        return companyRepository.getById(companyId);
     }
 }
 

@@ -24,7 +24,7 @@ public class CompanyEmployeeSpringApplication implements CommandLineRunner {
     }
 
     @Override
-    public void run(String... args) throws Exception  {
+    public void run(String... args) throws Exception {
         if (!employeeRepository.findByEmail("admin").isPresent()) {
             employeeRepository.save(Employee.builder()
                     .email("admin")
@@ -38,9 +38,9 @@ public class CompanyEmployeeSpringApplication implements CommandLineRunner {
                     .build());
         }
     }
+
     @Bean
     public PasswordEncoder encoder() {
         return new BCryptPasswordEncoder();
     }
 }
-

@@ -14,7 +14,7 @@ public class CurrentUser extends User {
         this.employee = employee;
     }
 
-    public Employee getEmployee(){
+    public Employee getEmployee() {
         return employee;
     }
 }
