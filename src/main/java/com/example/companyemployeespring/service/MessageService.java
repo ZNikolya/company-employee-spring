@@ -22,6 +22,6 @@ public class MessageService {
     }
 
     public List<Message> findAllMessagesByToId(int id) {
-        return messageRepository.findAllByToId(id);
+        return messageRepository.findAllByToEmployee_Id(id);
     }
 }

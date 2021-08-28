@@ -17,12 +17,14 @@ public class Message {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private int fromId;
-    private int toId;
+
     private String letter;
 
-    @Transient
+    @ManyToOne
+    @JoinColumn(name = "from_id")
     private Employee fromEmployee;
-    @Transient
+
+    @ManyToOne
+    @JoinColumn(name = "to_id")
     private Employee toEmployee;
 }

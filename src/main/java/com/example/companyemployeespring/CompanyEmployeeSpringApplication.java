@@ -1,7 +1,9 @@
 package com.example.companyemployeespring;
 
+import com.example.companyemployeespring.model.Company;
 import com.example.companyemployeespring.model.Employee;
 import com.example.companyemployeespring.model.EmployeeType;
+import com.example.companyemployeespring.repository.CompanyRepository;
 import com.example.companyemployeespring.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -16,6 +18,10 @@ public class CompanyEmployeeSpringApplication implements CommandLineRunner {
 
     @Autowired
     private EmployeeRepository employeeRepository;
+
+    @Autowired
+    private CompanyRepository companyRepository;
+
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -26,6 +32,12 @@ public class CompanyEmployeeSpringApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         if (!employeeRepository.findByEmail("admin").isPresent()) {
+
+            Company company = companyRepository.save(Company.builder()
+                    .name("Default Company")
+                    .address("Default Address")
+                    .build());
+
             employeeRepository.save(Employee.builder()
                     .email("admin")
                     .phoneNumber("+37441824704")
@@ -34,7 +46,7 @@ public class CompanyEmployeeSpringApplication implements CommandLineRunner {
                     .password(passwordEncoder.encode("admin"))
                     .position("admin")
                     .employeeType(EmployeeType.ADMIN)
-                    .companyId(5)
+                    .company(company)
                     .build());
         }
     }

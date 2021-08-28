@@ -6,6 +6,8 @@
     <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
+<a href="/logout">Logout</a>
+
 <div class="employeesTable">
     <a href="/" style="color: red">Index Page</a> | <span style="color:red;">Employees</span> | <a href="/addEmployee"
                                                                                                    style="border: red; color: red">
@@ -35,7 +37,7 @@
             <td th:text="${employee.phoneNumber}"></td>
             <td th:text="${employee.salary}"></td>
             <td th:text="${employee.position}"></td>
-            <td th:text="${employee.companyName}"></td>
+            <td th:text="${employee.company.name}"></td>
         </tr>
     </table>
 </div>
