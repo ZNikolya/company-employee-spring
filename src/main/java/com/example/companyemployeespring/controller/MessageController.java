@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -24,26 +23,22 @@ public class MessageController {
     private final MessageService messageService;
 
     @GetMapping("/sendMessage")
-    public String getAllEmployees(ModelMap modelMap, @AuthenticationPrincipal CurrentUser currentUser) {
+    public String getAllEmployees(ModelMap modelMap) {
         List<Employee> all = employeeService.findAll();
         modelMap.addAttribute("employees", all);
-        modelMap.addAttribute("id", currentUser.getEmployee().getId());
-        return "/messages";
+        return "messages";
     }
 
     @GetMapping("/allMessages")
     public String getAllMessages(ModelMap modelMap, @AuthenticationPrincipal CurrentUser currentUser) {
         List<Message> all = messageService.findAllMessagesByToId(currentUser.getEmployee().getId());
-        for (Message message : all) {
-            Optional<Employee> employeeById = employeeService.findEmployeeById(message.getFromId());
-            message.setFromEmployee(employeeById.get());
-        }
         modelMap.addAttribute("messages", all);
-        return "/showMessages";
+        return "showMessages";
     }
 
     @PostMapping("/sendMessage")
-    public String sendMessage(@ModelAttribute Message message) {
+    public String sendMessage(@ModelAttribute Message message, @AuthenticationPrincipal CurrentUser currentUser) {
+        message.setFromEmployee(currentUser.getEmployee());
         messageService.saveMessage(message);
         return "redirect:/employees";
     }

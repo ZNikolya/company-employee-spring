@@ -24,9 +24,11 @@ public class Employee {
     private String phoneNumber;
     private int salary;
     private String position;
-    private int companyId;
+
+    @ManyToOne
+    private Company company;
+
     @Enumerated(value = EnumType.STRING)
     private EmployeeType employeeType;
-    @Transient
-    private String companyName;
+
 }

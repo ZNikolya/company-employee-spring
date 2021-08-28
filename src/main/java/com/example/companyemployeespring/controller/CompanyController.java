@@ -42,7 +42,6 @@ public class CompanyController {
     @GetMapping("/deleteCompany/{id}")
     @Transactional
     public String deleteCompany(@PathVariable("id") int id) {
-        System.out.println(id);
         employeeService.deleteAllByCompanyId(id);
         companyService.deleteById(id);
         return "redirect:/companies";

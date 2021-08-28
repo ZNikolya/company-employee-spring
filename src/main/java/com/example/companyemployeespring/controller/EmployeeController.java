@@ -26,11 +26,7 @@ public class EmployeeController {
 
     @GetMapping("/employees")
     public String getEmployees(ModelMap modelMap, @AuthenticationPrincipal CurrentUser currentUser) {
-        List<Employee> all = employeeService.findEmployeeByCompanyId(currentUser.getEmployee().getCompanyId());
-        for (Employee employee : all) {
-            Company companyById = companyService.findCompanyById(employee.getCompanyId());
-            employee.setCompanyName(companyById.getName());
-        }
+        List<Employee> all = employeeService.findEmployeeByCompanyId(currentUser.getEmployee().getCompany().getId());
         modelMap.addAttribute("employees", all);
         return "employees";
     }
@@ -46,10 +42,8 @@ public class EmployeeController {
     public String addEmployee(@ModelAttribute Employee employee) {
         employee.setPassword(passwordEncoder.encode(employee.getPassword()));
         employeeService.save(employee);
-        Company company = companyService.getById(employee.getCompanyId());
-        int companySizeNew = company.getSize();
-        companySizeNew++;
-        company.setSize(companySizeNew);
+        Company company = companyService.getById(employee.getCompany().getId());
+        company.setSize(company.getSize() + 1);
         companyService.save(company);
         return "redirect:/employees";
     }
