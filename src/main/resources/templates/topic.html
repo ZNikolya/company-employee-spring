@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" >
+    <title>Topics</title>
+</head>
+<body>
+<a href="/addTopic"
+   style="border: red; color: red">Add Topic </a>
+
+        <div th:each="topic:${topics}">
+            <a th:href="@{/more/{id}(id=${topic.id})}"> <h3 th:text = "${topic.name}"></h3></a>
+        <p th:text = "${topic.company.name}"></p>
+        <p th:text = "${topic.createdDate}"></p>
+    </div>
+</body>
+</html>

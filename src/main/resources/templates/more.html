@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>more</title>
+</head>
+<body>
+
+
+
+<tr th:each="comment:${comments}">
+    <td th:text="${comment.text}"></td>
+    <td th:text="${comment.createdDate}"></td>
+    <td th:text="${comment.employee.name}"></td>
+</tr>
+</body>
+</html>
