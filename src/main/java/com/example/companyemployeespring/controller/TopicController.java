@@ -52,7 +52,7 @@ public class TopicController {
         Optional<Topic> topic = topicService.findTopicById(id);
         List<Comment> all = commentService.getAllCommentsByTopicId(id);
         modelMap.addAttribute("comments",all);
-        modelMap.addAttribute("topic",topic);
+        modelMap.addAttribute("topics",topic.get());
         return "more";
     }
 

@@ -27,5 +27,8 @@ public class Comment {
     @JoinColumn(name = "topic_id")
     private Topic topic;
 
+    @Transient
+    private int topicId;
+
 
 }

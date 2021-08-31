@@ -6,12 +6,20 @@
 </head>
 <body>
 
+    <h3 th:text="${topics.name}"></h3>
 
-
-<tr th:each="comment:${comments}">
+<table border="1px">
+<tr th:each="comment:${comments}" style="border: red">
     <td th:text="${comment.text}"></td>
     <td th:text="${comment.createdDate}"></td>
     <td th:text="${comment.employee.name}"></td>
-</tr>
+</tr><br>
+</table>
+
+<form action="/addComment" method="post">
+    <input type="hidden" th:value="${topics.id}" name="topicId">
+    <textarea name = "text"></textarea>
+    <input type="submit" value="Add Comment">
+</form>
 </body>
 </html>
