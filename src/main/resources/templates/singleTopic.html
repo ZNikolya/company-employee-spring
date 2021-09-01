@@ -6,7 +6,7 @@
 </head>
 <body>
 
-    <h3 th:text="${topics.name}"></h3>
+    <h3 th:text="${topic.name}"></h3>
 
 <table border="1px">
 <tr th:each="comment:${comments}" style="border: red">
@@ -17,7 +17,7 @@
 </table>
 
 <form action="/addComment" method="post">
-    <input type="hidden" th:value="${topics.id}" name="topicId">
+    <input type="hidden" th:value="${topic.id}" name="topic.id">
     <textarea name = "text"></textarea>
     <input type="submit" value="Add Comment">
 </form>

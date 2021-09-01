@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -34,26 +33,28 @@ public class TopicController {
     public String viewTopics(ModelMap modelMap, @AuthenticationPrincipal CurrentUser currentUser) {
         List<Topic> all = topicService.findAllByCompanyId(currentUser.getEmployee().getCompany().getId());
         modelMap.addAttribute("topics", all);
-        return "topic";
+        return "topics";
     }
 
     @PostMapping("/addTopic")
-    public String addTopic(@AuthenticationPrincipal CurrentUser currentUser, @ModelAttribute Topic topic){
+    public String addTopic(@AuthenticationPrincipal CurrentUser currentUser, @ModelAttribute Topic topic) {
         topic.setCreatedDate(new Date());
-        topic.setCompany(currentUser.getEmployee().getCompany());
         topic.setEmployee(currentUser.getEmployee());
         topicService.saveTopic(topic);
         return "redirect:/topics";
 
     }
-    @GetMapping("/more/{id}")
-    @Transactional
+
+    @GetMapping("/topics/{id}")
     public String showMore(@PathVariable("id") int id, ModelMap modelMap) {
         Optional<Topic> topic = topicService.findTopicById(id);
-        List<Comment> all = commentService.getAllCommentsByTopicId(id);
-        modelMap.addAttribute("comments",all);
-        modelMap.addAttribute("topics",topic.get());
-        return "more";
+        if (topic.isEmpty()) {
+            return "redirect:/topics";
+        }
+        List<Comment> comments = commentService.getAllCommentsByTopicId(id);
+        modelMap.addAttribute("comments", comments);
+        modelMap.addAttribute("topic", topic.get());
+        return "singleTopic";
     }
 
 }
