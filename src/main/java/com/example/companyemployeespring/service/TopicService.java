@@ -14,7 +14,7 @@ public class TopicService {
     private final TopicRepository topicRepository;
 
     public List<Topic> findAllByCompanyId(int id){
-        return topicRepository.findAllByCompany_id(id);
+        return topicRepository.findAllByEmployee_Company_Id(id);
     }
     public Optional<Topic> findTopicById(int id){
         return topicRepository.findById(id);

@@ -6,5 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface TopicRepository extends JpaRepository<Topic, Integer> {
-    List<Topic> findAllByCompany_id(int id);
+
+    List<Topic> findAllByEmployee_Company_Id(int id);
 }

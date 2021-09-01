@@ -20,11 +20,8 @@ public class Topic {
     private int id;
     private String name;
     private Date createdDate;
+
     @ManyToOne
-    @JoinColumn(name = "company_id")
-    private Company company;
-    @ManyToOne
-    @JoinColumn(name = "employee_id")
     private Employee employee;
 
 }
