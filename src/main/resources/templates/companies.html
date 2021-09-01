@@ -9,9 +9,8 @@
 <a href="/logout">Logout</a>
 
 <div class="table">
-    <a href="/" style="color: red">Index Page</a> | <span style="color:red;">Companies</span> | <a href="/addCompany"
-                                                                                                   style="border: red; color: red">
-    AddCompany </a>
+    <a href="/" style="color: red">Index Page</a> | <span style="color:red;">Companies</span> |
+    <a  th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}" href="/addCompany"> AddCompany </a>
 
     <table border="1">
 
