@@ -6,6 +6,7 @@ import com.example.companyemployeespring.security.CurrentUser;
 import com.example.companyemployeespring.service.CommentService;
 import com.example.companyemployeespring.service.TopicService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -20,6 +21,7 @@ import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
+@Slf4j
 public class TopicController {
     private final TopicService topicService;
     private final CommentService commentService;
@@ -33,6 +35,7 @@ public class TopicController {
     public String viewTopics(ModelMap modelMap, @AuthenticationPrincipal CurrentUser currentUser) {
         List<Topic> all = topicService.findAllByCompanyId(currentUser.getEmployee().getCompany().getId());
         modelMap.addAttribute("topics", all);
+        log.info("Employee with {} name opened topic page, topic.size = {}", currentUser.getEmployee().getEmail(), all.size());
         return "topics";
     }
 

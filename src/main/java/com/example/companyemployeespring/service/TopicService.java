@@ -13,14 +13,15 @@ import java.util.Optional;
 public class TopicService {
     private final TopicRepository topicRepository;
 
-    public List<Topic> findAllByCompanyId(int id){
+    public List<Topic> findAllByCompanyId(int id) {
         return topicRepository.findAllByEmployee_Company_Id(id);
     }
-    public Optional<Topic> findTopicById(int id){
+
+    public Optional<Topic> findTopicById(int id) {
         return topicRepository.findById(id);
     }
 
-    public void saveTopic(Topic topic){
+    public void saveTopic(Topic topic) {
         topicRepository.save(topic);
     }
 }

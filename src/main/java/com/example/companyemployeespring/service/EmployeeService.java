@@ -29,9 +29,4 @@ public class EmployeeService {
     public List<Employee> findEmployeeByCompanyId(int companyId) {
         return employeeRepository.findEmployeeByCompanyId(companyId);
     }
-
-    public Optional<Employee> findEmployeeById(int id) {
-        return employeeRepository.findById(id);
-
-    }
 }

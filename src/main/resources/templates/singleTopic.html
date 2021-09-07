@@ -6,14 +6,15 @@
 </head>
 <body>
 
-    <h3 th:text="${topic.name}"></h3>
+<h3 th:text="${topic.name}"></h3>
 
 <table border="1px">
-<tr th:each="comment:${comments}" style="border: red">
-    <td th:text="${comment.text}"></td>
-    <td th:text="${comment.createdDate}"></td>
-    <td th:text="${comment.employee.name}"></td>
-</tr><br>
+    <tr th:each="comment:${comments}" style="border: #000000">
+        <td th:text="${comment.text}"></td>
+        <td th:text="${comment.createdDate}"></td>
+        <td th:text="${comment.employee.name}"></td>
+        <td><a th:href="@{/deleteComment/{id}(id=${comment.id})}" href="#"><span>Delete</span></a></td>
+    </tr><br>
 </table>
 
 <form action="/addComment" method="post">

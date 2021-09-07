@@ -17,10 +17,6 @@ public class MessageService {
         messageRepository.save(message);
     }
 
-    public List<Message> findAll() {
-        return messageRepository.findAll();
-    }
-
     public List<Message> findAllMessagesByToId(int id) {
         return messageRepository.findAllByToEmployee_Id(id);
     }

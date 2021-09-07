@@ -1,9 +1,12 @@
 package com.example.companyemployeespring.controller;
 
 import com.example.companyemployeespring.model.Company;
+import com.example.companyemployeespring.security.CurrentUser;
 import com.example.companyemployeespring.service.CompanyService;
 import com.example.companyemployeespring.service.EmployeeService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,15 +19,17 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
+@Slf4j
 public class CompanyController {
 
     private final CompanyService companyService;
     private final EmployeeService employeeService;
 
     @GetMapping("/companies")
-    public String getCompanies(ModelMap modelMap) {
+    public String getCompanies(ModelMap modelMap, @AuthenticationPrincipal CurrentUser currentUser) {
         List<Company> all = companyService.findAll();
         modelMap.addAttribute("companies", all);
+        log.info("Employee with {} name opened companies page, company.size = {}", currentUser.getEmployee().getEmail(), all.size());
         return "companies";
     }
 

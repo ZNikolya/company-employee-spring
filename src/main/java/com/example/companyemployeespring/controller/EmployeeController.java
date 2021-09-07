@@ -6,6 +6,7 @@ import com.example.companyemployeespring.security.CurrentUser;
 import com.example.companyemployeespring.service.CompanyService;
 import com.example.companyemployeespring.service.EmployeeService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,7 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
+@Slf4j
 public class EmployeeController {
 
     private final EmployeeService employeeService;
@@ -28,6 +30,7 @@ public class EmployeeController {
     public String getEmployees(ModelMap modelMap, @AuthenticationPrincipal CurrentUser currentUser) {
         List<Employee> all = employeeService.findEmployeeByCompanyId(currentUser.getEmployee().getCompany().getId());
         modelMap.addAttribute("employees", all);
+        log.info("Employee with {} name opened employee page, employee.size = {}", currentUser.getEmployee().getEmail(), all.size());
         return "employees";
     }
 

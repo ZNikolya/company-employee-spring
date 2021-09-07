@@ -6,6 +6,7 @@ import com.example.companyemployeespring.security.CurrentUser;
 import com.example.companyemployeespring.service.EmployeeService;
 import com.example.companyemployeespring.service.MessageService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -17,6 +18,7 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
+@Slf4j
 public class MessageController {
 
     private final EmployeeService employeeService;
@@ -33,6 +35,7 @@ public class MessageController {
     public String getAllMessages(ModelMap modelMap, @AuthenticationPrincipal CurrentUser currentUser) {
         List<Message> all = messageService.findAllMessagesByToId(currentUser.getEmployee().getId());
         modelMap.addAttribute("messages", all);
+        log.info("Employee with {} name opened message page, later.size = {}", currentUser.getEmployee().getEmail(), all.size());
         return "showMessages";
     }
 

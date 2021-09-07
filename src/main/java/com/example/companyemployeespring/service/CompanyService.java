@@ -30,8 +30,5 @@ public class CompanyService {
         companyRepository.deleteById(id);
     }
 
-    public Company findCompanyById(int companyId) {
-        return companyRepository.getById(companyId);
-    }
 }
 
