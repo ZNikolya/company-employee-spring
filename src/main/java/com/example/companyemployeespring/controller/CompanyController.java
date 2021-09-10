@@ -27,6 +27,10 @@ public class CompanyController {
 
     @GetMapping("/companies")
     public String getCompanies(ModelMap modelMap, @AuthenticationPrincipal CurrentUser currentUser) {
+        if (!currentUser.getEmployee().getIsActive()){
+            modelMap.addAttribute(currentUser.getEmployee());
+            return "active";
+        }
         List<Company> all = companyService.findAll();
         modelMap.addAttribute("companies", all);
         log.info("Employee with {} name opened companies page, company.size = {}", currentUser.getEmployee().getEmail(), all.size());

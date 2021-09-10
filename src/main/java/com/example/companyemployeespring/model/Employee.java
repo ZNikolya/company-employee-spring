@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import net.bytebuddy.implementation.bind.annotation.Default;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 
@@ -24,11 +26,10 @@ public class Employee {
     private String phoneNumber;
     private int salary;
     private String position;
-
     @ManyToOne
     private Company company;
-
     @Enumerated(value = EnumType.STRING)
     private EmployeeType employeeType;
-
+    private String activeCode;
+    private Boolean isActive = false;
 }

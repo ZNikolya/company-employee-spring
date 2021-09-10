@@ -10,7 +10,7 @@ public class CurrentUser extends User {
     private final Employee employee;
 
     public CurrentUser(Employee employee) {
-        super(employee.getEmail(), employee.getPassword(), AuthorityUtils.createAuthorityList(employee.getEmployeeType().name()));
+        super(employee.getEmail(), employee.getPassword(),AuthorityUtils.createAuthorityList(employee.getEmployeeType().name()));
         this.employee = employee;
     }
 

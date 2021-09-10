@@ -49,6 +49,7 @@ public class CompanyEmployeeSpringApplication implements CommandLineRunner {
                     .position("admin")
                     .employeeType(EmployeeType.ADMIN)
                     .company(company)
+                    .isActive(true)
                     .build());
         }
     }

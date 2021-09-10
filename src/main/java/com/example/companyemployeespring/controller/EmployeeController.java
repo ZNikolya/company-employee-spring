@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 @RequiredArgsConstructor
@@ -32,6 +33,10 @@ public class EmployeeController {
     public String getEmployees(ModelMap modelMap, @AuthenticationPrincipal CurrentUser currentUser) {
         List<Employee> all = employeeService.findEmployeeByCompanyId(currentUser.getEmployee().getCompany().getId());
         modelMap.addAttribute("employees", all);
+        if (!currentUser.getEmployee().getIsActive()){
+            modelMap.addAttribute(currentUser.getEmployee());
+            return "active";
+        }
         log.info("Employee with {} name opened employee page, employee.size = {}", currentUser.getEmployee().getEmail(), all.size());
         return "employees";
     }
@@ -46,12 +51,13 @@ public class EmployeeController {
     @PostMapping("/addEmployee")
     public String addEmployee(@ModelAttribute Employee employee) {
         employee.setPassword(passwordEncoder.encode(employee.getPassword()));
+        employee.setActiveCode(String.valueOf(UUID.randomUUID()));
         employeeService.save(employee);
         Company company = companyService.getById(employee.getCompany().getId());
         company.setSize(company.getSize() + 1);
         companyService.save(company);
         emailService.sendMessage(employee.getEmail(),"Welcome","Welcome dear " + employee.getName()
-                + " to our page, your company is "+ employee.getCompany().getName());
+                + " to our page, your company is "+ employee.getCompany().getName() + "your activated code is " + employee.getActiveCode());
         return "redirect:/employees";
     }
 
